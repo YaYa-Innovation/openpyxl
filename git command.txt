@@ -1,0 +1,30 @@
+mkdir .ssh
+cd .ssh
+ls
+ssh-keygen.exe
+ls
+pwd
+cat pwd/id_rsa
+cd
+cd /d/openpyxl #open Your Directory
+ls
+git config --global user.name "user name"
+git config --global user.email "enter@gmail.com"
+git config --global push.default matching
+git config --global alias.co checkout
+git init     #If any Error Please Type Maually Don't Copy and Paste
+************************************************
+if You Create The File On The Folder How To Update 
+follow below the commands
+cd /d/openpyxl #(main)
+------------------------------------------------
+git add .
+git commit -am "commit changes"
+git push
+------------------------------------------------
+git remote add origin https://github.com/YaYa-Innovation/openpyxl.git
+git branch -M main
+git push -u origin main
+git push
+
+************************************************
