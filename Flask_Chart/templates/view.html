@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Excel Data</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th, td {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+    <h1>View Excel Data</h1>
+    
+    <div>
+        <label for="fromDate">From Date:</label>
+        <input type="date" id="fromDate">
+        <label for="toDate">To Date:</label>
+        <input type="date" id="toDate">
+        <button id="filterData">Filter Data</button>
+        <button id="showAllData">Show All</button>
+<button id="exportExcel">Export Excel</button>
+
+    </div>
+
+    <div style="overflow-x:auto;">
+        <table id="dataTable" border="1">
+            <!-- Excel data will be displayed here -->
+        </table>
+    </div>
+
+    <script>
+        $(document).ready(function() {
+            function updateTable(startDate, endDate) {
+                $.ajax({
+                    url: '/get_filtered_data',
+                    type: 'GET',
+                    data: { startDate: startDate, endDate: endDate },
+                    success: function(data) {
+                        var tableContent = '<tr><th>Date</th><th>Value 1</th><th>Value 2</th><th>Value 3</th></tr>';
+                        for (var i = 0; i < data.dates.length; i++) {
+                            tableContent += '<tr>';
+                            tableContent += '<td>' + data.dates[i] + '</td>';
+                            tableContent += '<td>' + data.values1[i] + '</td>';
+                            tableContent += '<td>' + data.values2[i] + '</td>';
+                            tableContent += '<td>' + data.values3[i] + '</td>';
+                            tableContent += '</tr>';
+                        }
+                        $('#dataTable').html(tableContent);
+                    }
+                });
+            }
+
+            $('#filterData').click(function() {
+                var fromDate = $('#fromDate').val();
+                var toDate = $('#toDate').val();
+                updateTable(fromDate, toDate);
+            });
+
+            $('#showAllData').click(function() {
+                updateTable(); // Show all data (no date filters)
+            });
+
+            updateTable(); // Load initial data
+        });
+    </script>
+<script>
+$(document).ready(function() {
+    $('#exportExcel').click(function() {
+        window.location.href = '/export_excel';
+    });
+});
+</script>
+</body>
+</html>
+

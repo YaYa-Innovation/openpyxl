@@ -11,7 +11,7 @@ cat /c/Users/memed/.ssh/id_rsa.pub
 cd /c/Users/memed/.ssh
 cd /d/openpyxl
 ls
-git-config --global user.name "YaYa-Innovation"
+git config --global user.name "YaYa-Innovation"
 git config --global user.email "yayainnovation3d@gmail.com"
 git config --global push.default matching
 git config --global alias.co checkout
@@ -21,3 +21,10 @@ git commit -am "Commit Message"
 git remote add origin https://github.com/YaYa-Innovation/openpyxl.git
 git branch -M main
 git push -u origin main
+
+*************To After Some Changes On Code You Push ***********
+
+git add .
+git commit -am "adding additional lines"
+git push
+ 
