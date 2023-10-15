@@ -1,5 +1,5 @@
 from flask import Flask, render_template, jsonify, request, send_file
-from openpyxl import load_workbook
+from openpyxl import *
 import io
 
 
@@ -60,27 +60,31 @@ def get_filtered_data():
     return jsonify(dates=dates, values1=values1, values2=values2, values3=values3)
 @app.route('/export_excel')
 def export_excel():
-    workbook = load_workbook('static/data.xlsx')
-    sheet = workbook.active
-
-    output = io.BytesIO()
+    workbook_out = Workbook()
+    sheet_out = workbook_out.active
 
     # Write headers
     headers = ['Date', 'Value 1', 'Value 2', 'Value 3']
-    sheet.append(headers)
+    sheet_out.append(headers)
 
-    # Write data
+    # Retrieve data from the original file
+    workbook = load_workbook('static/data.xlsx')
+    sheet = workbook.active
+
     for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, min_col=1, max_col=4):
         data_row = [cell.value for cell in row]
-        sheet.append(data_row)
+        sheet_out.append(data_row)
 
-    workbook.save(output)
+    # Save the new workbook to a BytesIO object
+    output = io.BytesIO()
+    workbook_out.save(output)
     output.seek(0)
 
     response = send_file(output, mimetype='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
     response.headers['Content-Disposition'] = 'attachment; filename=exported_data.xlsx'
     
     return response
+    
 if __name__ == '__main__':
     app.run(debug=True)
 
