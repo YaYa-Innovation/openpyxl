@@ -17,7 +17,7 @@ def view():
 
 @app.route('/get_data')
 def get_data():
-    workbook = load_workbook('static/data.xlsx')
+    workbook = load_workbook('Furnace_UPT/rpiWebServer/Furnace_UPT.xlsx') #Furnace_UPT/rpiWebServer/Furnace_UPT.xlsx
     sheet = workbook.active
 
     dates = []
@@ -64,7 +64,7 @@ def get_data():
 
 @app.route('/get_filtered_data')
 def get_filtered_data():
-    workbook = load_workbook('static/data.xlsx')
+    workbook = load_workbook('Furnace_UPT/rpiWebServer/Furnace_UPT.xlsx') #replace this Furnace_UPT/rpiWebServer/Furnace_UPT.xlsx
     sheet = workbook.active
 
     start_date = request.args.get('startDate')
@@ -127,7 +127,7 @@ def export_excel():
     sheet_out.append(headers)
 
     # Retrieve data from the original file
-    workbook = load_workbook('static/data.xlsx')
+    workbook = load_workbook('Furnace_UPT/rpiWebServer/Furnace_UPT.xlsx')
     sheet = workbook.active
 
     for row in sheet.iter_rows(min_row=2, max_row=sheet.max_row, min_col=1, max_col=18):
