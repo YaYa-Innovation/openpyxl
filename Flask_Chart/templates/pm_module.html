@@ -1,76 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Machine Task Form</title>
+    <title>Dynamic Input Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+
+        .form-container {
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: calc(100% - 12px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        button.additional {
+            width: 48%;
+            margin: 0 1%;
+        }
+
+        .additional-buttons {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .additional-buttons button {
+            display: inline-block;
+            vertical-align: middle;
+            background-color: #008CBA;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+    <script>
+        var currentStep = 1;
+
+        function showNextInputs() {
+            var input1 = document.getElementById("data1");
+            var input2 = document.getElementById("data2");
+            var input3 = document.getElementById("data3");
+            var input4 = document.getElementById("data4");
+            var nextButton = document.getElementById("nextButton");
+            var submitButton = document.getElementById("submitButton");
+            var additionalButton1 = document.getElementById("additionalButton1");
+            var additionalButton2 = document.getElementById("additionalButton2");
+            var table = document.getElementById("dataTable");
+
+            if (currentStep === 1 && input1.value !== "") {
+                input2.classList.remove("hidden");
+                currentStep++;
+            } else if (currentStep === 2 && input2.value !== "") {
+                input3.classList.remove("hidden");
+                currentStep++;
+            } else if (currentStep === 3 && input3.value !== "") {
+                input4.classList.remove("hidden");
+                currentStep++;
+            } else if (currentStep === 4 && input4.value !== "") {
+                nextButton.classList.add("hidden");
+                additionalButton1.classList.remove("hidden");
+                additionalButton2.classList.remove("hidden");
+                currentStep++;
+		
+            } 
+             else if (currentStep === 5 ) {
+            } 
+
+
+
+	else {
+                alert("Please fill in the required input.");
+            }
+        }
+
+        function showTable() {
+            var table = document.getElementById("dataTable");
+            table.classList.remove("hidden");
+        }
+
+        function handleKeyPress(event) {
+            if (event.keyCode === 13) {
+                event.preventDefault();
+                showNextInputs();
+            }
+        }
+    </script>
 </head>
+
 <body>
+    <div class="form-container">
+        <div>
+            <label for="data1">Input 1:</label>
+            <input type="text" id="data1" onkeydown="handleKeyPress(event)"><br>
+        </div>
 
-<div id="formContainer">
-    <form id="machineForm">
-        <label for="machineName">Machine Name:</label>
-        <input type="text" id="machineName" required><br>
-        <input type="submit" value="Next">
-    </form>
+        <div id="data2" class="hidden">
+            <label for="data2">Input 2:</label>
+            <input type="text" id="data2" onkeydown="handleKeyPress(event)"><br>
+        </div>
 
-    <form id="taskForm" style="display:none;">
-        <label for="task">Task:</label>
-        <input type="text" id="task" required><br>
-        <label for="description">Description:</label>
-        <input type="text" id="description" required><br>
-        <label for="frequency">Frequency (in days):</label>
-        <input type="number" id="frequency" required><br>
-        <label for="manHour">Man Hour:</label>
-        <input type="number" id="manHour" required><br>
-        <input type="submit" value="Add Task">
-    </form>
-</div>
+        <div id="data3" class="hidden">
+            <label for="data3">Input 3:</label>
+            <input type="text" id="data3" onkeydown="handleKeyPress(event)"><br>
+        </div>
 
-<div id="summary" style="display:none;">
-    <h2>Summary</h2>
-    <table id="summaryTable" border="1">
-        <tr>
-            <th>Machine Name</th>
-            <th>Task</th>
-            <th>Description</th>
-            <th>Frequency (in days)</th>
-            <th>Man Hour</th>
-        </tr>
-    </table>
-</div>
+        <div id="data4" class="hidden">
+            <label for="data4">Input 4:</label>
+            <input type="text" id="data4" onkeydown="handleKeyPress(event)"><br>
+        </div>
 
-<script>
-    document.getElementById('machineForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const machineName = document.getElementById('machineName').value;
-        document.getElementById('machineForm').style.display = 'none';
-        document.getElementById('taskForm').style.display = 'block';
-        document.getElementById('summary').style.display = 'block';
-        document.getElementById('summaryTable').innerHTML +=
-            `<tr>
-                <td>${machineName}</td>
-                <td id="taskValue"></td>
-                <td id="descriptionValue"></td>
-                <td id="frequencyValue"></td>
-                <td id="manHourValue"></td>
-            </tr>`;
-    });
 
-    document.getElementById('taskForm').addEventListener('submit', function(e) {
-        e.preventDefault();
-        const task = document.getElementById('task').value;
-        const description = document.getElementById('description').value;
-        const frequency = document.getElementById('frequency').value;
-        const manHour = document.getElementById('manHour').value;
-        document.getElementById('taskValue').textContent = task;
-        document.getElementById('descriptionValue').textContent = description;
-        document.getElementById('frequencyValue').textContent = frequency;
-        document.getElementById('manHourValue').textContent = manHour;
-        document.getElementById('taskForm').reset();
-    });
-</script>
+        <button id="nextButton" onclick="showNextInputs()">Next</button>
+        <button id="submitButton" class="hidden" type="submit">Submit</button>
 
+        <div id="data5" class="hidden">
+            <button id="additionalButton1" onclick="showTable()">Additional Button 1</button>
+            <button id="additionalButton2" >Additional Button 2</button>
+        </div>
+        <table id="dataTable" class="hidden">
+            <tr>
+                <th>Input 1</th>
+                <th>Input 2</th>
+                <th>Input 3</th>
+                <th>Input 4</th>
+            </tr>
+            <tr>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+                <td><input type="text"></td>
+            </tr>
+        </table>
+    </div>
 </body>
+
 </html>
 

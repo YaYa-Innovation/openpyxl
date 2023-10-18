@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dynamic Input Form</title>
+    <script>
+        function showNextInput() {
+            var firstInput = document.getElementById("firstInput");
+            var secondInput = document.getElementById("secondInput");
+
+            if (firstInput.style.display === "none") {
+                firstInput.style.display = "block";
+                secondInput.style.display = "none";
+            } else {
+                firstInput.style.display = "none";
+                secondInput.style.display = "block";
+            }
+        }
+    </script>
+</head>
+<body>
+    <div id="firstInput">
+        <label for="input1">Input 1:</label>
+        <input type="text" id="input1"><br>
+        <button onclick="showNextInput()">Next</button>
+    </div>
+
+    <div id="secondInput" style="display:none;">
+        <label for="input2">Input 2:</label>
+        <input type="text" id="input2"><br>
+        <button onclick="showNextInput()">Next</button>
+    </div>
+</body>
+</html>
