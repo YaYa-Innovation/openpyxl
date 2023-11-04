@@ -28,3 +28,42 @@ def display_rows():
 
 if __name__ == '__main__':
     app.run(debug=True)
+<!-- templates/index.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Rows</title>
+</head>
+
+<body>
+
+    <h2>Enter Starting and Ending Row Numbers:</h2>
+
+    <form action="/display_rows" method="post">
+        Starting Row:<br>
+        <input type="number" name="start_row" required><br><br>
+        Ending Row:<br>
+        <input type="number" name="end_row" required><br><br>
+        <input type="submit" value="Submit">
+    </form>
+
+    {% if data %}
+    <h2>Displaying Rows</h2>
+    <table border="1">
+        {% for row in data %}
+        <tr>
+            {% for cell in row %}
+            <td>{{ cell }}</td>
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </table>
+    {% endif %}
+
+</body>
+
+</html>
