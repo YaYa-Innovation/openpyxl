@@ -90,3 +90,113 @@
 </body>
 
 </html>
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Split Layout</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+        }
+
+        .row {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+        }
+
+        .left {
+            flex: 1;
+            background-color: #f0f0f0;
+            overflow-y: auto;
+            padding: 20px;
+            height: 70%; /* Adjust the height as needed */
+        }
+
+        .right {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            height: 30%; /* Adjust the height as needed */
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            border: 1px solid #ccc;
+        }
+
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+        }
+
+        th {
+            background-color: #f2f2f2;
+        }
+
+        .second-row {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            height: 100px; /* Adjust the height as needed */
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="row">
+        <div class="left">
+            <h2>Form</h2>
+            <form>
+                <label for="name">Name:</label><br>
+                <input type="text" id="name" name="name"><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email"><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </div>
+        <div class="right">
+            <h2>Table View</h2>
+            <table>
+                <tr>
+                    <th>Header 1</th>
+                    <th>Header 2</th>
+                    <th>Header 3</th>
+                </tr>
+                <tr>
+                    <td>Data 1</td>
+                    <td>Data 2</td>
+                    <td>Data 3</td>
+                </tr>
+                <tr>
+                    <td>Data 4</td>
+                    <td>Data 5</td>
+                    <td>Data 6</td>
+                </tr>
+                <!-- Add more rows as needed -->
+            </table>
+        </div>
+    </div>
+
+    <div class="second-row">
+        <h2>Second Row Content</h2>
+        <p>This is some sample content for the second row. You can replace it with your own content.</p>
+    </div>
+
+</body>
+
+</html>
